@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>DevTest2</title>
+  <!-- add tailwind css -->
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+  <div class="bg-white p-8 rounded shadow-md w-1/3">
+    <form id="quote-form" class="mb-4">
+      <div class="mb-4">
+        <label for="characters-dropdown" class="block text-gray-700 text-sm font-bold mb-2">Select Character:</label>
+        <select id="characters-dropdown"
+          class="form-dropdown block w-full bg-white border border-gray-300 hover:border-gray-500 px-4 py-2 pr-8 rounded leading-tight focus:outline-none focus:shadow-outline">
+        </select>
+      </div>
+      <div class="flex justify-center">
+        <button type="button" id="display-quote-button"
+          class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+          Display Quote
+        </button>
+      </div>
+    </form>
+    <div id="quote" class="quote-display text-center text-lg text-gray-700 mt-4 p-4 bg-gray-200 rounded"></div>
+  </div>
+
+
+  <script>
+    // Embedded JSON data
+    const characters = [
+      { id: 1, name: 'Harry Potter', quote: 'I solemnly swear that I am up to no good.' },
+      { id: 2, name: 'Hermione Granger', quote: "It's Wingardium LeviOsa, not LeviosAR!" },
+      { id: 3, name: 'Ron Weasley', quote: "Don't let the muggles get you down." },
+      { id: 4, name: 'Albus Dumbledore', quote: 'It does not do to dwell on dreams and forget to live.' },
+      { id: 5, name: 'Severus Snape', quote: 'Always.' },
+      { id: 6, name: 'Sirius Black', quote: "We've all got both light and dark inside us." },
+      { id: 7, name: 'Rubeus Hagrid', quote: "You're a wizard, Harry." },
+      { id: 8, name: 'Draco Malfoy', quote: 'My father will hear about this!' },
+      { id: 9, name: 'Luna Lovegood', quote: "You're just as sane as I am." },
+      { id: 10, name: 'Lord Voldemort', quote: 'There is no good and evil, there is only power... and those too weak to seek it.' }
+    ];
+
+
+    document.addEventListener("DOMContentLoaded", function () {
+
+      // Get the dropdown element where the characters will be listed
+      const dropdown = document.getElementById('characters-dropdown');
+
+      characters.forEach(character => {
+        const option = document.createElement('option'); // Create a new <option> element for each character
+        option.value = character.id;
+        option.textContent = character.name;
+        dropdown.appendChild(option);  // Append the option to the dropdown
+      });
+
+      // Add an event listener to the button to display the quote when clicked
+      document.getElementById('display-quote-button').addEventListener('click', function () {
+        const selectedCharacterId = dropdown.value;
+        const character = characters.find(char => char.id == selectedCharacterId);   // Find the character object that matches the selected id
+        document.getElementById('quote').textContent = character ? character.quote : 'Quote not found'; // Display the quote of the selected character, or 'Quote not found' if no match is found
+      });
+    });
+  </script>
+
+</body>
+
+</html>
